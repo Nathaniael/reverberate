@@ -8,6 +8,7 @@ import Link from "next/link"
 import { Music, Sparkles, BarChart3, Heart, AlertCircle, Play, Headphones, TrendingUp, Zap } from "lucide-react"
 import { motion } from "framer-motion"
 import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 
 // Floating musical elements component
 const FloatingMusicElements = () => {
@@ -54,6 +55,38 @@ const FloatingMusicElements = () => {
         </motion.div>
       ))}
     </>
+  )
+}
+
+// Separate client component for error handling that uses useSearchParams
+function ErrorMessage() {
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error')
+
+  const getErrorMessage = (error: string) => {
+    switch (error) {
+      case 'no-session':
+        return 'Please sign in with your Spotify account to continue.'
+      case 'no-access-token':
+        return 'Authentication failed. Please try signing in again.'
+      default:
+        return 'An error occurred. Please try again.'
+    }
+  }
+
+  if (!error) return null
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-8 max-w-md mx-auto backdrop-blur-lg"
+    >
+      <div className="flex items-center space-x-2 text-red-200">
+        <AlertCircle className="w-5 h-5" />
+        <span>{getErrorMessage(error)}</span>
+      </div>
+    </motion.div>
   )
 }
 
@@ -109,19 +142,6 @@ const BackgroundOrbs = () => (
 
 export default function Home() {
   const { data: session, status } = useSession()
-  const searchParams = useSearchParams()
-  const error = searchParams.get('error')
-
-  const getErrorMessage = (error: string) => {
-    switch (error) {
-      case 'no-session':
-        return 'Please sign in with your Spotify account to continue.'
-      case 'no-access-token':
-        return 'Authentication failed. Please try signing in again.'
-      default:
-        return 'An error occurred. Please try again.'
-    }
-  }
 
   const features = [
     {
@@ -201,18 +221,9 @@ export default function Home() {
       <main className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-8 text-center">
         <div className="max-w-6xl mx-auto">
           {/* Error Message */}
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-8 max-w-md mx-auto backdrop-blur-lg"
-            >
-              <div className="flex items-center space-x-2 text-red-200">
-                <AlertCircle className="w-5 h-5" />
-                <span>{getErrorMessage(error)}</span>
-              </div>
-            </motion.div>
-          )}
+          <Suspense fallback={null}>
+            <ErrorMessage />
+          </Suspense>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
