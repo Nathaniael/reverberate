@@ -21,14 +21,14 @@ export function WelcomeSlide({ data }: WelcomeSlideProps) {
         className="text-center text-white"
       >
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Welcome to Your Wrapped
+          Welcome to Your Recap
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-8">
           {data.user.display_name}
         </p>
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 max-w-md mx-auto">
           <p className="text-lg text-gray-300">
-            Let&apos;s explore your musical journey through 2024
+            Let&apos;s explore your musical journey
           </p>
         </div>
       </motion.div>
