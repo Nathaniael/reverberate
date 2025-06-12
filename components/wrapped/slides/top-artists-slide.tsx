@@ -16,7 +16,7 @@ interface TopArtistsSlideProps {
 export function TopArtistsSlide({ data }: TopArtistsSlideProps) {
   return (
     <div className="h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 overflow-hidden">
-      <div className="h-full flex flex-col p-8">
+      <div className="h-full flex flex-col p-8 pt-20">
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

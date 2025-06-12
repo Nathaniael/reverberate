@@ -6,7 +6,6 @@ import { createSpotifyAPI, type SpotifyTrack, type SpotifyArtist, type SpotifyUs
 import { WelcomeSlide } from './slides/welcome-slide'
 import { TopTracksSlide } from './slides/top-tracks-slide'
 import { TopArtistsSlide } from './slides/top-artists-slide'
-import { SummarySlide } from './slides/summary-slide'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight, Home, ArrowLeft } from 'lucide-react'
 import { EnhancedMoodSlide } from './slides/enhanced-mood-slide'
@@ -32,7 +31,6 @@ export function WrappedContent({ accessToken }: WrappedContentProps) {
     { id: 'top-tracks', component: TopTracksSlide },
     { id: 'top-artists', component: TopArtistsSlide },
     { id: 'mood', component: EnhancedMoodSlide },
-    { id: 'summary', component: SummarySlide },
   ]
 
   useEffect(() => {

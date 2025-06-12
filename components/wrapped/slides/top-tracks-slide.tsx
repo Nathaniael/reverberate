@@ -16,7 +16,7 @@ interface TopTracksSlideProps {
 export function TopTracksSlide({ data }: TopTracksSlideProps) {
   return (
     <div className="h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 overflow-hidden">
-      <div className="h-full flex flex-col p-8">
+      <div className="h-full flex flex-col p-8 pt-20">
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
