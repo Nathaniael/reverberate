@@ -1,14 +1,17 @@
 import { signIn } from "@/auth"
+import { Button } from "@/components/ui/button"
 
 export function SignIn() {
   return (
     <form
       action={async () => {
         "use server"
-        await signIn()
+        await signIn("spotify", { redirectTo: "/wrapped" })
       }}
     >
-      <button type="submit">Sign in</button>
+      <Button variant="spotify" size="lg" type="submit" className="text-lg px-8">
+        Connect with Spotify
+      </Button>
     </form>
   )
 }

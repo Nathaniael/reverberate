@@ -1,105 +1,119 @@
-import { SignIn } from "@/components/auth/signin-button";
-import Image from "next/image";
+import { auth } from "@/auth"
+import { SignIn } from "@/components/auth/signin-button"
+import { SignOut } from "@/components/auth/signout-button"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { Music, Sparkles, BarChart3, Heart, AlertCircle } from "lucide-react"
 
-export default function Home() {
+interface HomeProps {
+  searchParams: Promise<{ error?: string }>
+}
+
+export default async function Home(props: HomeProps) {
+  const session = await auth()
+  const searchParams = await props.searchParams
+  const error = searchParams.error
+
+  const getErrorMessage = (error: string) => {
+    switch (error) {
+      case 'no-session':
+        return 'Please sign in with your Spotify account to continue.'
+      case 'no-access-token':
+        return 'Authentication failed. Please try signing in again.'
+      default:
+        return 'An error occurred. Please try again.'
+    }
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <SignIn />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+      {/* Header */}
+      <header className="p-6 flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          <Music className="w-8 h-8 text-green-400" />
+          <span className="text-2xl font-bold text-white">Reverberate</span>
+        </div>
+        <div>
+          {session ? <SignOut /> : null}
+        </div>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <main className="flex flex-col items-center justify-center min-h-[80vh] px-8 text-center">
+        <div className="max-w-4xl mx-auto">
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-8 max-w-md mx-auto">
+              <div className="flex items-center space-x-2 text-red-200">
+                <AlertCircle className="w-5 h-5" />
+                <span>{getErrorMessage(error)}</span>
+              </div>
+            </div>
+          )}
+
+          <div className="mb-8">
+            <Sparkles className="w-16 h-16 text-yellow-400 mx-auto mb-6 animate-pulse" />
+            <h1 className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 mb-6">
+              Your Musical Story
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Discover your unique music DNA with a beautiful, personalized journey through your Spotify listening habits
+            </p>
+          </div>
+
+          {session ? (
+            <div className="space-y-6">
+              <p className="text-lg text-green-400 mb-4">
+                Welcome back, {session.user?.name}! 👋
+              </p>
+              <Link href="/wrapped">
+                <Button variant="spotify" size="lg" className="text-xl px-12 py-6">
+                  View Your Wrapped ✨
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-8">
+              <SignIn />
+              <p className="text-sm text-gray-400 max-w-md mx-auto">
+                Connect your Spotify account to generate your personalized music wrapped experience
+              </p>
+            </div>
+          )}
+
+          {/* Features */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <BarChart3 className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Top Tracks & Artists</h3>
+              <p className="text-gray-300 text-sm">
+                Discover your most played songs and favorite artists from the year
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <Heart className="w-12 h-12 text-pink-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Musical DNA</h3>
+              <p className="text-gray-300 text-sm">
+                Analyze your music&apos;s mood, energy, and emotional fingerprint
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+              <Sparkles className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Beautiful Stories</h3>
+              <p className="text-gray-300 text-sm">
+                Experience your data through smooth animations and stunning visuals
+              </p>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="p-6 text-center text-gray-400 text-sm">
+        <p>Built with Next.js, Tailwind CSS, and the Spotify Web API</p>
       </footer>
     </div>
-  );
+  )
 }

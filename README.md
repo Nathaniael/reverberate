@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reverberate - Spotify Wrapped Clone
 
-## Getting Started
+A beautiful, dynamic Spotify Wrapped clone built with Next.js 15, React 19, and the Spotify Web API. Experience your musical journey through stunning visualizations and smooth animations.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🎵 **Top Tracks & Artists**: Discover your most played songs and favorite artists
+- 🧬 **Musical DNA**: Analyze your music's mood, energy, and emotional fingerprint
+- ✨ **Beautiful Animations**: Smooth transitions and engaging visual storytelling
+- 📱 **Responsive Design**: Works perfectly on desktop and mobile
+- 🔐 **Secure OAuth**: Safe authentication through Spotify
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Frontend**: React 19, TypeScript
+- **Styling**: Tailwind CSS v4, Radix UI
+- **Animation**: Framer Motion
+- **Authentication**: NextAuth.js v5
+- **API**: Spotify Web API
+
+## Setup Instructions
+
+### 1. Spotify App Setup
+
+1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
+2. Create a new app
+3. Add redirect URI: `http://localhost:3000/api/auth/callback/spotify`
+4. Note your Client ID and Client Secret
+
+### 2. Environment Variables
+
+Create a `.env.local` file with:
+
+```env
+SPOTIFY_CLIENT_ID=your_spotify_client_id_here
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret_here
+NEXTAUTH_SECRET=your_random_secret_here
+NEXTAUTH_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Installation & Running
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Install dependencies
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Run development server
+npm run dev
+```
 
-## Learn More
+Visit `http://localhost:3000` and connect your Spotify account!
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # Landing page
+│   ├── wrapped/           # Wrapped experience
+│   └── api/auth/          # Authentication endpoints
+├── components/
+│   ├── ui/                # Reusable UI components
+│   ├── auth/              # Authentication components
+│   └── wrapped/           # Wrapped-specific components
+├── lib/
+│   ├── spotify.ts         # Spotify API utilities
+│   └── utils.ts           # General utilities
+└── auth.ts                # NextAuth configuration
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features Overview
 
-## Deploy on Vercel
+### Welcome Slide
+- Personal greeting with user avatar
+- Quick stats overview
+- Beautiful gradient animations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Top Tracks
+- Your most played songs with album artwork
+- Play duration and popularity metrics
+- Smooth staggered animations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Top Artists
+- Artist rankings with follower counts
+- Genre analysis and insights
+- Circular avatar layouts
+
+### Musical DNA
+- Audio feature analysis (danceability, energy, valence)
+- Mood and tempo insights
+- Animated progress bars
+
+### Summary
+- Year in review with key statistics
+- Personalized music personality
+- Shareable highlights
+
+## License
+
+MIT License - feel free to use this project for learning and personal use.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues and pull requests.
