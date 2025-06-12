@@ -66,9 +66,9 @@ export default async function Home(props: HomeProps) {
               <p className="text-lg text-green-400 mb-4">
                 Welcome back, {session.user?.name}! 👋
               </p>
-              <Link href="/wrapped">
+              <Link href="/recap">
                 <Button variant="spotify" size="lg" className="text-xl px-12 py-6">
-                  View Your Wrapped ✨
+                  View Your Recap ✨
                 </Button>
               </Link>
             </div>
@@ -76,7 +76,7 @@ export default async function Home(props: HomeProps) {
             <div className="space-y-8">
               <SignIn />
               <p className="text-sm text-gray-400 max-w-md mx-auto">
-                Connect your Spotify account to generate your personalized music wrapped experience
+                Connect your Spotify account to generate your personalized music recap experience
               </p>
             </div>
           )}

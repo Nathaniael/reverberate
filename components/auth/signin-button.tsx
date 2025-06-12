@@ -6,7 +6,7 @@ export function SignIn() {
     <form
       action={async () => {
         "use server"
-        await signIn("spotify", { redirectTo: "/wrapped" })
+        await signIn("spotify", { redirectTo: "/recap" })
       }}
     >
       <Button variant="spotify" size="lg" type="submit" className="text-lg px-8">

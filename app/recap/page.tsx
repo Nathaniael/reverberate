@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { WrappedContent } from "@/components/wrapped/wrapped-content"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
 
-export default async function WrappedPage() {
+export default async function RecapPage() {
   const session = await auth()
 
   if (!session) {
