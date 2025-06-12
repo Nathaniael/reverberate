@@ -150,7 +150,7 @@ export function WrappedContent({ accessToken }: WrappedContentProps) {
       </AnimatePresence>
 
       {/* Navigation */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-4 z-50">
         <Button
           variant="ghost"
           size="icon"
