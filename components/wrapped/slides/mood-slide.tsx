@@ -13,7 +13,7 @@ import { MoodInsights } from './mood/mood-insights'
 import { RecommendedActivities } from './mood/recommended-activities'
 import { MusicalContext } from './mood/musical-context'
 
-export function EnhancedMoodSlide({ data }: SlideProps) {
+export function MoodSlide({ data }: SlideProps) {
   const [moodAnalysis, setMoodAnalysis] = useState<MoodAnalysis | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -78,7 +78,9 @@ export function EnhancedMoodSlide({ data }: SlideProps) {
           moodCharacteristics={mood.characteristics}
         />
 
-        <MoodInsights insights={insights} />
+        <MoodInsights
+          insights={insights}
+        />
 
         <RecommendedActivities activities={mood.recommendedActivities} />
 
