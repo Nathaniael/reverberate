@@ -34,7 +34,7 @@ export function TopTracksSlide({ data }: TopTracksSlideProps) {
         <div className="flex-1 overflow-y-auto">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pb-8">
-              {data.topTracks.slice(0, 20).map((track, index) => (
+              {data.topTracks.map((track: SpotifyTrack, index: number) => (
                 <motion.div
                   key={track.id}
                   initial={{ x: -100, opacity: 0 }}
